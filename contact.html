@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us - Kyenyil Gas</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+background-color: rgb(61, 58, 58);
+margin: 0;
+padding: 0;
+color: #333;
+}
+
+header {
+background-color: rgb(105, 94, 94); 
+color: white;
+text-align: center;
+padding: 20px 0;
+}
+
+.contact-container {
+max-width: 800px;
+margin: 40px auto;
+background: white;
+padding: 30px;
+border-radius: 8px;
+box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h2 {
+text-align: center;
+color: rgb(105, 94, 94);
+}
+
+form {
+display: flex;
+flex-direction: column;
+}
+
+label {
+margin: 10px 0 5px;
+font-weight: bold;
+color: rgb(105, 94, 94);
+}
+
+input, textarea {
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 5px;
+font-size: 16px;
+}
+
+textarea {
+resize: vertical;
+min-height: 120px;
+}
+
+button {
+margin-top: 20px;
+padding: 12px;
+background-color: rgb(105, 94, 94); 
+color: white;
+border: none;
+border-radius: 5px;
+font-size: 16px;
+cursor: pointer;
+transition: background 0.3s ease;
+}
+
+button:hover {
+background-color: #333; /* Darker grey on hover */
+}
+
+.contact-info {
+margin-top: 30px;
+text-align: center;
+color: #555;
+}
+
+.contact-info p {
+margin: 5px 0;
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Kyenyil Gas Contact Page</h1>
+</header>
+
+<div class="contact-container">
+<h2>Get in Touch</h2>
+<form>
+<label for="name">Full Name</label>
+<input type="text" id="name" name="name" placeholder="Your name" required>
+
+<label for="email">Email Address</label>
+<input type="email" id="email" name="email" placeholder="Your email" required>
+
+<label for="phone">Phone Number</label>
+<input type="tel" id="phone" name="phone" placeholder="Your phone number">
+
+<label for="message">Message</label>
+<textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+
+<button type="submit">Send Message</button>
+</form>
+
+<div class="contact-info">
+<p><strong>Phone:</strong> +234 800 123 4567</p>
+<p><strong>Email:</strong> support@Kyenyilgas.com</p>
+<p><strong>Address:</strong> No. 12 Bukuru lokkos, Jos, Plateau State</p>
+</div>
+</div>
+</body>
+</html>

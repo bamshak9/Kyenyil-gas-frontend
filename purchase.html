@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buy Now | Kyenyil Gas</title>
+  <link rel="stylesheet" href="purchase.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-flame">🔥</span>
+        <span class="logo-text">Kyenyil <strong>Gas</strong></span>
+      </a>
+      <nav class="nav-links">
+        <a href="products.html" class="nav-link">Products</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="purchase.html" class="nav-link nav-buy">Buy Now</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="products.html">Products</a>
+      <a href="contact.html">Contact</a>
+      <a href="purchase.html" class="mobile-buy">Buy Now</a>
+    </div>
+  </header>
+
+  <!-- PAGE HEADER -->
+  <section class="page-header">
+    <div class="page-header-inner">
+      <p class="page-tag">Fast Delivery · Jos, Plateau</p>
+      <h1 class="page-title">Place Your Order</h1>
+      <p class="page-sub">Fill in the details below and we'll deliver your gas cylinder right to your door.</p>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="purchase-main">
+    <div class="purchase-layout">
+
+      <!-- ORDER FORM -->
+      <section class="form-section">
+        <div class="form-card">
+          <h2 class="form-title">Order Details</h2>
+
+          <!-- Step indicator -->
+          <div class="steps">
+            <div class="step active" data-step="1">
+              <div class="step-dot">1</div>
+              <span>Cylinder</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step" data-step="2">
+              <div class="step-dot">2</div>
+              <span>Delivery</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step" data-step="3">
+              <div class="step-dot">3</div>
+              <span>Confirm</span>
+            </div>
+          </div>
+
+          <form id="orderForm" novalidate>
+
+            <!-- STEP 1: Cylinder Selection -->
+            <div class="form-step" id="step1">
+              <p class="step-label">Step 1 — Choose your cylinder size</p>
+
+              <div class="cylinder-grid" id="cylinderGrid">
+                <label class="cyl-option">
+                  <input type="radio" name="cylinderSize" value="1kg" required />
+                  <div class="cyl-card">
+                    <div class="cyl-vis cyl-xs">1<span>kg</span></div>
+                    <p class="cyl-name">1 kg</p>
+                    <p class="cyl-desc">Portable & travel</p>
+                  </div>
+                </label>
+                <label class="cyl-option">
+                  <input type="radio" name="cylinderSize" value="2kg" />
+                  <div class="cyl-card">
+                    <div class="cyl-vis cyl-sm">2<span>kg</span></div>
+                    <p class="cyl-name">2 kg</p>
+                    <p class="cyl-desc">Small household</p>
+                  </div>
+                </label>
+                <label class="cyl-option">
+                  <input type="radio" name="cylinderSize" value="5kg" />
+                  <div class="cyl-card popular-cyl">
+                    <span class="pop-badge">Popular</span>
+                    <div class="cyl-vis cyl-md">5<span>kg</span></div>
+                    <p class="cyl-name">5 kg</p>
+                    <p class="cyl-desc">Family favourite</p>
+                  </div>
+                </label>
+                <label class="cyl-option">
+                  <input type="radio" name="cylinderSize" value="12.5kg" />
+                  <div class="cyl-card popular-cyl">
+                    <span class="pop-badge value">Best Value</span>
+                    <div class="cyl-vis cyl-md">12.5<span>kg</span></div>
+                    <p class="cyl-name">12.5 kg</p>
+                    <p class="cyl-desc">Standard family</p>
+                  </div>
+                </label>
+                <label class="cyl-option">
+                  <input type="radio" name="cylinderSize" value="25kg" />
+                  <div class="cyl-card">
+                    <div class="cyl-vis cyl-lg">25<span>kg</span></div>
+                    <p class="cyl-name">25 kg</p>
+                    <p class="cyl-desc">Business use</p>
+                  </div>
+                </label>
+                <label class="cyl-option">
+                  <input type="radio" name="cylinderSize" value="50kg" />
+                  <div class="cyl-card">
+                    <div class="cyl-vis cyl-xl">50<span>kg</span></div>
+                    <p class="cyl-name">50 kg</p>
+                    <p class="cyl-desc">Industrial</p>
+                  </div>
+                </label>
+                <label class="cyl-option">
+                  <input type="radio" name="cylinderSize" value="custom" id="customRadio" />
+                  <div class="cyl-card custom-cyl-card">
+                    <div class="cyl-vis cyl-custom">✏️</div>
+                    <p class="cyl-name">Custom</p>
+                    <p class="cyl-desc">Enter your size</p>
+                  </div>
+                </label>
+              </div>
+              <p class="field-error hidden" id="sizeError">Please select a cylinder size.</p>
+
+              <!-- Custom size input — shown only when Custom is selected -->
+              <div class="custom-size-box hidden" id="customSizeBox">
+                <div class="custom-size-inner">
+                  <div class="form-group" style="margin-top:0">
+                    <label for="customSizeKg">Custom cylinder size <span class="req">*</span></label>
+                    <div class="custom-input-wrap">
+                      <input type="number" id="customSizeKg" name="customSizeKg"
+                             placeholder="e.g. 3" min="0.5" max="500" step="0.5" />
+                      <span class="custom-unit">kg</span>
+                    </div>
+                    <p class="field-hint">Enter any weight between 0.5 kg and 500 kg.</p>
+                    <p class="field-error hidden" id="customSizeError">Please enter a valid size (0.5–500 kg).</p>
+                  </div>
+                  <div class="form-group" style="margin-top:0.9rem">
+                    <label for="customSizeNote">Describe your cylinder <span class="opt">(optional)</span></label>
+                    <input type="text" id="customSizeNote" name="customSizeNote"
+                           placeholder="e.g. old blue 3 kg cylinder, brand: SunnGas" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="quantity">Quantity</label>
+                  <div class="qty-control">
+                    <button type="button" class="qty-btn" id="qtyMinus">−</button>
+                    <input type="number" id="quantity" name="quantity" value="1" min="1" max="20" readonly />
+                    <button type="button" class="qty-btn" id="qtyPlus">+</button>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="cylinderType">Cylinder action</label>
+                  <select id="cylinderType" name="cylinderType" required>
+                    <option value="" disabled selected>Select…</option>
+                    <option value="refill">Refill (bring empty cylinder)</option>
+                    <option value="new">New cylinder purchase</option>
+                  </select>
+                  <p class="field-error hidden" id="typeError">Please select a cylinder action.</p>
+                </div>
+              </div>
+
+              <div class="step-nav">
+                <button type="button" class="btn-next" id="toStep2">Continue to Delivery →</button>
+              </div>
+            </div>
+
+            <!-- STEP 2: Delivery Info -->
+            <div class="form-step hidden" id="step2">
+              <p class="step-label">Step 2 — Your delivery details</p>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="firstName">First name <span class="req">*</span></label>
+                  <input type="text" id="firstName" name="firstName" placeholder="e.g. Amina" required />
+                  <p class="field-error hidden" id="firstNameError">First name is required.</p>
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Last name <span class="req">*</span></label>
+                  <input type="text" id="lastName" name="lastName" placeholder="e.g. Danladi" required />
+                  <p class="field-error hidden" id="lastNameError">Last name is required.</p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Phone number <span class="req">*</span></label>
+                <input type="tel" id="phone" name="phone" placeholder="e.g. 08012345678" required />
+                <p class="field-error hidden" id="phoneError">Please enter a valid phone number.</p>
+              </div>
+
+              <div class="form-group">
+                <label for="address">Delivery address <span class="req">*</span></label>
+                <input type="text" id="address" name="address" placeholder="House number, street name" required />
+                <p class="field-error hidden" id="addressError">Delivery address is required.</p>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="area">Area / Neighbourhood <span class="req">*</span></label>
+                  <select id="area" name="area" required>
+                    <option value="" disabled selected>Select area…</option>
+                    <option>Rayfield</option>
+                    <option>Terminus</option>
+                    <option>Angwan Rogo</option>
+                    <option>Nasarawa GRA</option>
+                    <option>Tudun Wada</option>
+                    <option>Gwong</option>
+                    <option>Bukuru</option>
+                    <option>Vom</option>
+                    <option>Shen</option>
+                    <option>Other (Jos)</option>
+                  </select>
+                  <p class="field-error hidden" id="areaError">Please select your area.</p>
+                </div>
+                <div class="form-group">
+                  <label for="deliveryDate">Preferred delivery date <span class="req">*</span></label>
+                  <input type="date" id="deliveryDate" name="deliveryDate" required />
+                  <p class="field-error hidden" id="dateError">Please choose a delivery date.</p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="notes">Additional notes <span class="opt">(optional)</span></label>
+                <textarea id="notes" name="notes" rows="3" placeholder="Any special instructions for delivery…"></textarea>
+              </div>
+
+              <div class="step-nav">
+                <button type="button" class="btn-back" id="toStep1Back">← Back</button>
+                <button type="button" class="btn-next" id="toStep3">Review Order →</button>
+              </div>
+            </div>
+
+            <!-- STEP 3: Confirmation -->
+            <div class="form-step hidden" id="step3">
+              <p class="step-label">Step 3 — Review and confirm your order</p>
+
+              <div class="order-summary" id="orderSummary">
+                <!-- Populated by JS -->
+              </div>
+
+              <div class="form-group">
+                <label for="paymentMethod">Payment method <span class="req">*</span></label>
+                <select id="paymentMethod" name="paymentMethod" required>
+                  <option value="" disabled selected>Select payment…</option>
+                  <option value="cash">Cash on delivery</option>
+                  <option value="transfer">Bank transfer</option>
+                </select>
+                <p class="field-error hidden" id="paymentError">Please select a payment method.</p>
+              </div>
+
+              <div class="terms-row">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="agreeTerms" required />
+                  <span class="checkmark"></span>
+                  I confirm my delivery details are correct and agree to the <a href="#">terms of service</a>.
+                </label>
+                <p class="field-error hidden" id="termsError">Please confirm your agreement.</p>
+              </div>
+
+              <div class="step-nav">
+                <button type="button" class="btn-back" id="toStep2Back">← Back</button>
+                <button type="submit" class="btn-submit" id="submitBtn">
+                  <span id="submitText">Place Order</span>
+                  <span id="submitSpinner" class="spinner hidden"></span>
+                </button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </section>
+
+      <!-- SIDEBAR -->
+      <aside class="order-sidebar">
+        <div class="sidebar-card">
+          <h3>Your Selection</h3>
+          <div class="sidebar-item" id="sidebarSize">
+            <span class="sidebar-icon">📦</span>
+            <div>
+              <p class="sidebar-key">Cylinder size</p>
+              <p class="sidebar-val" id="sidebarSizeVal">Not selected</p>
+            </div>
+          </div>
+          <div class="sidebar-item">
+            <span class="sidebar-icon">🔢</span>
+            <div>
+              <p class="sidebar-key">Quantity</p>
+              <p class="sidebar-val" id="sidebarQtyVal">1</p>
+            </div>
+          </div>
+          <div class="sidebar-item">
+            <span class="sidebar-icon">🔄</span>
+            <div>
+              <p class="sidebar-key">Action</p>
+              <p class="sidebar-val" id="sidebarTypeVal">—</p>
+            </div>
+          </div>
+          <div class="sidebar-item">
+            <span class="sidebar-icon">📍</span>
+            <div>
+              <p class="sidebar-key">Delivery area</p>
+              <p class="sidebar-val" id="sidebarAreaVal">—</p>
+            </div>
+          </div>
+          <div class="sidebar-divider"></div>
+          <div class="sidebar-guarantee">
+            <p>✅ Safety-certified cylinders</p>
+            <p>⚡ Same-day delivery available</p>
+            <p>📞 Call support anytime</p>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- SUCCESS MODAL -->
+  <div class="modal-overlay hidden" id="successModal">
+    <div class="modal">
+      <div class="modal-flame">🔥</div>
+      <h2>Order Placed!</h2>
+      <p>Thank you! Your order has been received. We'll contact you shortly to confirm your delivery.</p>
+      <p class="order-ref" id="orderRef"></p>
+      <a href="index.html" class="btn-primary">Back to Home</a>
+    </div>
+  </div>
+
+  <!-- ERROR TOAST -->
+  <div class="toast hidden" id="errorToast">
+    <span id="toastMsg">Something went wrong. Please try again.</span>
+  </div>
+
+  <script src="purchase.js"></script>
+</body>
+</html>
