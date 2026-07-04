@@ -170,10 +170,24 @@
                   <label for="cylinderType">Cylinder action</label>
                   <select id="cylinderType" name="cylinderType" required>
                     <option value="" disabled selected>Select…</option>
-                    <option value="refill">Refill (bring empty cylinder)</option>
-                    <option value="new">New cylinder purchase</option>
+                    <option value="swap">Swap my cylinder with a full one</option>
+                    <option value="pickup">Pickup my cylinder</option>
+                    <option value="new">Bring new filled cylinder</option>
                   </select>
                   <p class="field-error hidden" id="typeError">Please select a cylinder action.</p>
+                </div>
+              </div>
+
+              <!-- Cylinder photo upload — shown only when "Swap" is selected -->
+              <div class="custom-size-box hidden" id="cylinderImageBox">
+                <div class="custom-size-inner">
+                  <div class="form-group" style="margin-top:0">
+                    <label for="cylinderImage">Upload a photo of your cylinder <span class="req">*</span></label>
+                    <input type="file" id="cylinderImage" name="cylinderImage" accept="image/*" capture="environment" />
+                    <p class="field-hint">We only accept swaps for cylinders in good or okay condition. Please upload a clear photo showing the cylinder body and valve.</p>
+                    <p class="field-error hidden" id="cylinderImageError">Please upload a photo of your cylinder.</p>
+                    <img id="cylinderImagePreview" class="cyl-image-preview hidden" alt="Cylinder photo preview" />
+                  </div>
                 </div>
               </div>
 

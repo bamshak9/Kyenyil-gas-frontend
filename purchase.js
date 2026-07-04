@@ -28,6 +28,13 @@ const submitText    = document.getElementById("submitText");
 const submitSpinner = document.getElementById("submitSpinner");
 const customSizeBox = document.getElementById("customSizeBox");
 const customSizeKg  = document.getElementById("customSizeKg");
+const cylinderImageBox     = document.getElementById("cylinderImageBox");
+const cylinderImageInput   = document.getElementById("cylinderImage");
+const cylinderImagePreview = document.getElementById("cylinderImagePreview");
+
+// Holds the compressed base64 photo once the user picks one (cleared if
+// they switch away from "swap" or remove the file).
+let cylinderImageData = "";
 
 // Step elements
 const steps     = document.querySelectorAll(".step");
@@ -91,6 +98,57 @@ function toggleCustomBox() {
     clearError(customSizeKg);
   }
 }
+
+/* =============================================
+   CYLINDER PHOTO BOX TOGGLE (shown only for "swap")
+   ============================================= */
+function toggleCylinderImageBox() {
+  const type = document.getElementById("cylinderType").value;
+  if (type === "swap") {
+    cylinderImageBox.classList.remove("hidden");
+  } else {
+    cylinderImageBox.classList.add("hidden");
+    cylinderImageInput.value = "";
+    cylinderImageData = "";
+    cylinderImagePreview.src = "";
+    cylinderImagePreview.classList.add("hidden");
+    hideError("cylinderImageError");
+  }
+}
+
+// Resize/compress the chosen photo client-side so uploads stay small
+// and fast, then store it as a base64 data URL for submission.
+function handleCylinderImageChange() {
+  const file = cylinderImageInput.files[0];
+  hideError("cylinderImageError");
+  if (!file) { cylinderImageData = ""; cylinderImagePreview.classList.add("hidden"); return; }
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const img = new Image();
+    img.onload = () => {
+      const MAX_DIM = 1000;
+      let { width, height } = img;
+      if (width > MAX_DIM || height > MAX_DIM) {
+        const scale = MAX_DIM / Math.max(width, height);
+        width = Math.round(width * scale);
+        height = Math.round(height * scale);
+      }
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+      cylinderImageData = canvas.toDataURL("image/jpeg", 0.7);
+      cylinderImagePreview.src = cylinderImageData;
+      cylinderImagePreview.classList.remove("hidden");
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+document.getElementById("cylinderType").addEventListener("change", toggleCylinderImageBox);
+cylinderImageInput.addEventListener("change", handleCylinderImageChange);
 
 /* =============================================
    LIVE SIDEBAR UPDATES
@@ -195,7 +253,7 @@ function validateStep1() {
     }
   }
 
-  // Must pick an action (refill / new)
+  // Must pick an action (swap / pickup / new)
   const typeEl = document.getElementById("cylinderType");
   if (!typeEl.value) {
     showError("typeError");
@@ -204,6 +262,14 @@ function validateStep1() {
   } else {
     hideError("typeError");
     clearError(typeEl);
+  }
+
+  // If swapping, a photo of the cylinder is required
+  if (typeEl.value === "swap" && !cylinderImageData) {
+    showError("cylinderImageError", "Please upload a photo of your cylinder to request a swap.");
+    valid = false;
+  } else {
+    hideError("cylinderImageError");
   }
 
   return valid;
@@ -339,7 +405,7 @@ function buildSummary() {
   const rows = [
     ["Cylinder size",    data.cylinderSize || "—"],
     ["Quantity",         data.quantity],
-    ["Action",           data.cylinderType === "refill" ? "Refill (bring empty cylinder)" : "New cylinder purchase"],
+    ["Action",           actionLabel(data.cylinderType)],
     ["Customer name",    `${data.firstName} ${data.lastName}`],
     ["Phone",            data.phone],
     ["Delivery address", data.address],
@@ -361,6 +427,23 @@ function buildSummary() {
       <span class="s-val">${val}</span>
     </div>
   `).join("");
+
+  // Show the uploaded cylinder photo in the summary for swap orders
+  if (data.cylinderType === "swap" && data.cylinderImage) {
+    container.insertAdjacentHTML("beforeend", `
+      <div class="summary-row">
+        <span class="s-key">Cylinder photo</span>
+        <span class="s-val"><img src="${data.cylinderImage}" alt="Your cylinder" class="cyl-image-preview" /></span>
+      </div>
+    `);
+  }
+}
+
+function actionLabel(type) {
+  if (type === "swap")   return "Swap my cylinder with a full one";
+  if (type === "pickup") return "Pickup my cylinder";
+  if (type === "new")    return "Bring new filled cylinder";
+  return "—";
 }
 
 function formatDate(dateStr) {
@@ -379,6 +462,7 @@ function collectFormData() {
     customSizeNote: document.getElementById("customSizeNote").value.trim(),
     quantity:       parseInt(qtyInput.value),
     cylinderType:   document.getElementById("cylinderType").value,
+    cylinderImage:  document.getElementById("cylinderType").value === "swap" ? cylinderImageData : "",
     firstName:      document.getElementById("firstName").value.trim(),
     lastName:       document.getElementById("lastName").value.trim(),
     phone:          document.getElementById("phone").value.trim(),
@@ -424,8 +508,9 @@ form.addEventListener("submit", async (e) => {
     orderRef.textContent = `Order reference: ${result.orderId || result._id || "KG-" + Date.now()}`;
     successModal.classList.remove("hidden");
     form.reset();
-    toggleCustomBox(); // reset custom box state
-    goToStep(1);       // reset step indicators
+    toggleCustomBox();        // reset custom box state
+    toggleCylinderImageBox(); // reset cylinder photo box state
+    goToStep(1);               // reset step indicators
 
   } catch (err) {
     console.error("Order submission error:", err);
